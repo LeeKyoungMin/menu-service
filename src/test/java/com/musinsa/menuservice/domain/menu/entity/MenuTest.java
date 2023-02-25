@@ -11,11 +11,11 @@ class MenuTest {
 
     @Test
     void testConstructor() {
-        Long id = 1L;
+        String id = "123asd-asdzxc1";
         String title = "Example";
         String link = "/example.com";
-        String parentId = "parent1";
-        Banner banner = new Banner(2L, "/main.banner.com", "/banner.com");
+        String parentId = "fasd2asd-123123";
+        Banner banner = new Banner("5123-asda-123aca", "/main.banner.com", "/banner.com");
         List<Menu> child = new ArrayList<>();
     
         Menu menu = new Menu(id, title, link, parentId, banner, child);

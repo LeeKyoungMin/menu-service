@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class BannerTest {
     @Test
     void testConstructor() {
-        Long id = 1L;
+        String id = "avasd-a1241234";
         String imageUrl = "/banner.example.com";
         String linkUrl = "/example.banner.com";
     

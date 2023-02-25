@@ -1,18 +1,29 @@
 package com.musinsa.menuservice.domain.menu.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Entity
 public class Banner {
-    private final Long id;
 
-    private final String imageUrl;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
-    private final String linkUrl;
+    private String imageUrl;
+
+    private String linkUrl;
 
     @Builder
-    public Banner(Long id, String imageUrl, String linkUrl){
+    public Banner(String id, String imageUrl, String linkUrl){
         this.id = id;
         this.imageUrl = imageUrl;
         this.linkUrl = linkUrl;
