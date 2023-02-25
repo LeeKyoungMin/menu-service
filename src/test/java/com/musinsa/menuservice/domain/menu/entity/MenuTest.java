@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.musinsa.menuservice.domain.banner.entity.Banner;
+
 class MenuTest {
 
     @Test

@@ -1,4 +1,4 @@
-package com.musinsa.menuservice.domain.menu.entity;
+package com.musinsa.menuservice.domain.banner.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
