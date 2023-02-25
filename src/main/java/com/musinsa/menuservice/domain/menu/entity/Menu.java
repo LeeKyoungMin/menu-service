@@ -17,14 +17,17 @@ public class Menu {
 
     private final String parentId;
 
+    private Banner banner;
+
     private List<Menu> child = new ArrayList<Menu>();
 
     @Builder
-    public Menu(Long id, String title, String link, String parentId, List<Menu> child){
+    public Menu(Long id, String title, String link, String parentId, Banner banner, List<Menu> child){
         this.id = id;
         this.title = Objects.requireNonNull(title);
         this.link = Objects.requireNonNull(link);
         this.parentId = Objects.requireNonNull(parentId);
+        this.banner = banner;
         this.child = child;
     }
 }
