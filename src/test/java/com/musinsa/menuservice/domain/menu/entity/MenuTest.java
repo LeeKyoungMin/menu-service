@@ -25,7 +25,7 @@ class MenuTest {
         assertEquals(link, menu.getLink());
         assertEquals(parentId, menu.getParentId());
         assertEquals(banner, menu.getBanner());
-        assertEquals(child, menu.getChild());
+        assertEquals(child, menu.getChilds());
     }
 
 }

@@ -30,15 +30,15 @@ public class Menu {
 
     private Banner banner;
 
-    private List<Menu> child = new ArrayList<Menu>();
+    private List<Menu> childs = new ArrayList<Menu>();
 
     @Builder
-    public Menu(String id, String title, String link, String parentId, Banner banner, List<Menu> child){
+    public Menu(String id, String title, String link, String parentId, Banner banner, List<Menu> childs){
         this.id = id;
         this.title = Objects.requireNonNull(title);
         this.link = Objects.requireNonNull(link);
         this.parentId = parentId;
         this.banner = banner;
-        this.child = child;
+        this.childs = childs;
     }
 }
