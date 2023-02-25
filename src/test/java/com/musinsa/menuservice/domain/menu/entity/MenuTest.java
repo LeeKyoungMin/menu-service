@@ -17,8 +17,8 @@ class MenuTest {
         String title = "Example";
         String link = "/example.com";
         String parentId = "fasd2asd-123123";
-        Banner banner = new Banner("5123-asda-123aca", "/main.banner.com", "/banner.com");
-        List<Menu> child = new ArrayList<>();
+        Banner banner = new Banner("/main.banner.com", "/banner.com");
+        ArrayList<Menu> child = new ArrayList<>();
     
         Menu menu = new Menu(id, title, link, parentId, banner, child);
     

@@ -32,15 +32,35 @@ public class Menu {
 
     private Banner banner;
 
-    private List<Menu> childs = new ArrayList<Menu>();
+    private ArrayList<Menu> childs = new ArrayList<Menu>();
 
     @Builder
-    public Menu(String id, String title, String link, String parentId, Banner banner, List<Menu> childs){
+    public Menu(String id, String title, String link, String parentId, Banner banner, ArrayList<Menu> childs){
         this.id = id;
         this.title = Objects.requireNonNull(title);
         this.link = Objects.requireNonNull(link);
         this.parentId = parentId;
         this.banner = banner;
         this.childs = childs;
+    }
+
+    public void add(Menu menu){
+        if(this.childs == null){
+            this.childs = new ArrayList<>();
+        }
+        
+        this.childs.add(menu);
+    }
+
+    public void remove(Menu menu){
+        if(this.childs.isEmpty()){
+            throw new IndexOutOfBoundsException();
+        }
+
+        for(int i = 0; i < childs.size(); i++){
+            if(childs.get(i).getId().equals(menu.getId())){
+                childs.set(i, null);
+            }
+        }
     }
 }
