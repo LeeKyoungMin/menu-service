@@ -1,9 +1,12 @@
 package com.musinsa.menuservice.domain.banner.entity;
 
+import javax.persistence.Embeddable;
+
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Embeddable
 public class Banner {
 
     private String imageUrl;
@@ -15,4 +18,6 @@ public class Banner {
         this.imageUrl = imageUrl;
         this.linkUrl = linkUrl;
     }
+
+    Banner(){}
 }

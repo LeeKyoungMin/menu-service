@@ -4,9 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -28,28 +34,30 @@ public class Menu {
 
     private String link;
 
-    private String parentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Menu parent;
 
+    @Embedded
     private Banner banner;
 
-    private ArrayList<Menu> childs = new ArrayList<Menu>();
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<Menu> childs = new ArrayList<Menu>();
 
     @Builder
-    public Menu(String id, String title, String link, String parentId, Banner banner, ArrayList<Menu> childs){
+    public Menu(String id, String title, String link, Menu parent, Banner banner, ArrayList<Menu> childs){
         this.id = id;
         this.title = Objects.requireNonNull(title);
         this.link = Objects.requireNonNull(link);
-        this.parentId = parentId;
+        this.parent = parent;
         this.banner = banner;
         this.childs = childs;
     }
 
-    public void add(Menu menu){
-        if(this.childs == null){
-            this.childs = new ArrayList<>();
-        }
-        
-        this.childs.add(menu);
+    public Menu(){}
+
+    public void add(Menu childs){
+        this.childs.add(childs);
     }
 
     public void remove(Menu menu){
