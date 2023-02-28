@@ -16,6 +16,7 @@ import com.musinsa.menuservice.domain.menu.service.MenuWriteService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -52,5 +53,10 @@ public class MenuController {
     public ResponseEntity<List<MenuDto>> getMenus(){
         var menuDto = menuReadService.getMenus();
         return ResponseEntity.ok(menuDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMenu(@PathVariable String id) {
+        menuWriteService.deleteMenu(id);
     }
 }

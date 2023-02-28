@@ -148,4 +148,24 @@ public class MenuWriteServiceTest {
         //then
         verify(menuRepository, times(1)).save(any(Menu.class));
     }
+
+    @DisplayName("[Service] 메뉴 Service delete 테스트")
+    @Test
+    void deleteMenuTest(){
+        String menuId = "cef5e424-52e7-417a-8af7-d62195073708";
+
+        menu = Menu.builder()
+                        .id(menuId)
+                        .title("test")
+                        .link("/test.example.com")
+                        .parent(new Menu())
+                        .banner(banner)
+                        .childs(new ArrayList<Menu>())
+                        .build();
+        when(menuRepository.findById(menuId)).thenReturn(Optional.of(menu));
+
+        menuWriteService.deleteMenu(menuId);
+
+        verify(menuRepository, times(1)).delete(any(Menu.class));
+    }
 }

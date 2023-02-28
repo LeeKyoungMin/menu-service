@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.musinsa.menuservice.domain.menu.dto.MenuDto;
 import com.musinsa.menuservice.domain.menu.dto.MenuCommand;
+import com.musinsa.menuservice.domain.menu.dto.MenuDto;
 import com.musinsa.menuservice.domain.menu.entity.Menu;
 import com.musinsa.menuservice.domain.menu.repository.MenuRepository;
 
@@ -26,7 +26,7 @@ public class MenuWriteService {
         Menu savedMenu = null;
 
         if (StringUtils.hasText(command.parentId())) {
-            parentMenu = menuRepository.findById(command.parentId()).orElseThrow();
+            parentMenu = getMenuById(command.parentId());
             
             Menu newMenu = Menu.builder()
                 .title(command.title())
@@ -58,7 +58,7 @@ public class MenuWriteService {
     @Transactional
     public void updateMenu(String id, MenuCommand command) {
         
-        Menu menu = menuRepository.findById(id).orElseThrow();
+        Menu menu = getMenuById(id);
         
         MenuDto menuDto = new MenuDto(menu);
         menu = Menu.builder()
@@ -72,4 +72,15 @@ public class MenuWriteService {
         
         menuRepository.save(menu);
     }
+
+    @Transactional
+    public void deleteMenu(String id) {
+        Menu menu = getMenuById(id);
+        menuRepository.delete(menu);
+    }
+
+    private Menu getMenuById(String id) {
+        return menuRepository.findById(id).orElseThrow();
+    }
+
 }
