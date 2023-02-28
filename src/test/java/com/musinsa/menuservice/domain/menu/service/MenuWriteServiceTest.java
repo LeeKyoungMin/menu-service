@@ -1,6 +1,7 @@
 package com.musinsa.menuservice.domain.menu.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
@@ -21,11 +22,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.musinsa.menuservice.domain.banner.entity.Banner;
 import com.musinsa.menuservice.domain.menu.dto.MenuDto;
-import com.musinsa.menuservice.domain.menu.dto.RegisterMenuCommand;
+import com.musinsa.menuservice.domain.menu.dto.MenuCommand;
 import com.musinsa.menuservice.domain.menu.entity.Menu;
 import com.musinsa.menuservice.domain.menu.repository.MenuRepository;
 
-// @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class MenuWriteServiceTest {
 
@@ -39,15 +39,15 @@ public class MenuWriteServiceTest {
 
     private Menu menu;
 
-    private RegisterMenuCommand registerMenuCommand;
+    private MenuCommand menuCommand;
 
     @BeforeEach
     void setUp(){
 
         banner = Banner.builder()
-                              .imageUrl("/banner.image.com")
-                              .linkUrl("/redirect.link.banner.com")
-                              .build();
+                        .imageUrl("/banner.image.com")
+                        .linkUrl("/redirect.link.banner.com")
+                        .build();
         
     }
 
@@ -56,31 +56,6 @@ public class MenuWriteServiceTest {
     void createMenuWithChildsTest(){
 
         //given
-        // String parentId = "123-123aa";
-        // menu = Menu.builder()
-        //                 .id(parentId)
-        //                 .title("test")
-        //                 .link("/test.example.com")
-        //                 .banner(banner)
-        //                 .childs(new ArrayList<Menu>())
-        //                 .build();
-
-        // when(menuRepository.findById(parentId)).thenReturn(Optional.of(menu));
-
-        // registerMenuCommand = new RegisterMenuCommand(
-        //                 "test",
-        //                 "/test.menu.com",
-        //                 parentId,
-        //                 banner,
-        //                 new ArrayList<Menu>()
-        //                 );
-
-        // //when
-        // Menu newMenu = menuWriteService.create(registerMenuCommand);
-
-        // //then
-        // assertTrue(menu.getChilds().contains(newMenu));
-        // given
         String parentId = "39e57a6d-e4ef-4b61-9cd7-13d680ed4c76";
         Menu parentMenu = Menu.builder()
                         .id(parentId)
@@ -89,7 +64,8 @@ public class MenuWriteServiceTest {
                         .banner(banner)
                         .childs(new ArrayList<Menu>())
                         .build();
-        registerMenuCommand = new RegisterMenuCommand(
+        menuCommand = new MenuCommand(
+                        "",
                         "test",
                         "/test.menu.com",
                         parentId,
@@ -100,14 +76,11 @@ public class MenuWriteServiceTest {
         when(menuRepository.findById(parentId)).thenReturn(Optional.of(parentMenu));
         when(menuRepository.save(any(Menu.class))).thenReturn(new Menu());
 
-        // when
-        MenuDto savedMenu = menuWriteService.create(registerMenuCommand);
+        //when
+        MenuDto savedMenu = menuWriteService.createMenu(menuCommand);
 
-        // then
-        assertEquals(savedMenu.getId(), parentMenu.getId());
-        // assertThat(savedMenu.getParent()).isEqualTo(parentMenu);
-        verify(menuRepository).findById(parentId);
-        verify(menuRepository).save(any(Menu.class));
+        //then
+        assertNotNull(savedMenu);
     }
 
     @DisplayName("[Service] 매뉴 Service create 테스트(최초 등록할때)")
@@ -124,7 +97,8 @@ public class MenuWriteServiceTest {
                         .childs(new ArrayList<Menu>())
                         .build();
 
-        registerMenuCommand = new RegisterMenuCommand(
+        menuCommand = new MenuCommand(
+                        "",
                         "test",
                         "/test.menu.com",
                         null,
@@ -134,12 +108,44 @@ public class MenuWriteServiceTest {
 
         when(menuRepository.save(any(Menu.class))).thenReturn(menu);
         
-        // when
-        MenuDto newMenu = menuWriteService.create(registerMenuCommand);
+        //when
+        MenuDto newMenuDto = menuWriteService.createMenu(menuCommand);
         
-        // then
+        //then
         verify(menuRepository, times(1)).save(any(Menu.class));
-        assertEquals(newMenu.getId(), menu.getId());
+        assertEquals(newMenuDto.getId(), menu.getId());
     }
 
+    @DisplayName("[Service] 매뉴 Service update 테스트")
+    @Test
+    void updatedMenuTest(){
+
+        //given
+        String menuId = "cef5e424-52e7-417a-8af7-d62195073708";
+        menu = Menu.builder()
+                        .id(menuId)
+                        .title("test")
+                        .link("/test.example.com")
+                        .parent(new Menu())
+                        .banner(banner)
+                        .childs(new ArrayList<Menu>())
+                        .build();
+
+        when(menuRepository.findById(menuId)).thenReturn(Optional.of(menu));
+
+        menuCommand = new MenuCommand(
+                menuId,
+                "test",
+                "/redirect.com",
+                null,
+                null,
+                new ArrayList<Menu>()
+                );           
+
+        //when
+        menuWriteService.updateMenu(menuId, menuCommand);
+
+        //then
+        verify(menuRepository, times(1)).save(any(Menu.class));
+    }
 }

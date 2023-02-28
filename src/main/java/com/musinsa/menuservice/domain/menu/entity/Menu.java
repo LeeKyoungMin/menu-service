@@ -3,6 +3,7 @@ package com.musinsa.menuservice.domain.menu.entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -17,6 +18,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.musinsa.menuservice.domain.banner.entity.Banner;
+import com.musinsa.menuservice.domain.menu.dto.MenuDto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -52,6 +54,19 @@ public class Menu {
         this.parent = parent;
         this.banner = banner;
         this.childs = childs;
+    }
+
+    public Menu(MenuDto menuDto){
+        if(menuDto != null && menuDto.getId() != null){
+            this.id = menuDto.getId();
+            this.title = menuDto.getTitle();
+            this.link = menuDto.getLink();
+            if(menuDto.getParent() != null && menuDto.getParent().getId() != null){
+                this.parent = new Menu(menuDto.getParent());
+            }
+            this.banner = menuDto.getBanner();
+            this.childs = menuDto.getChilds().stream().map(Menu::new).collect(Collectors.toList());
+        }
     }
 
     public Menu(){}

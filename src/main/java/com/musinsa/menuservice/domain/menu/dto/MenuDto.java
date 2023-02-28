@@ -15,6 +15,7 @@ public class MenuDto{
     private String id;
     private String title;
     private String link;
+    private MenuDto parent;
     private Banner banner;
     private List<MenuDto> childs;
 
@@ -22,14 +23,18 @@ public class MenuDto{
         this.id = menu.getId();
         this.title = menu.getTitle();
         this.link = menu.getLink();
+        if(menu.getParent() != null && menu.getParent().getId() != null){
+            this.parent = new MenuDto(menu.getParent());
+        }
         this.banner = menu.getBanner();
         this.childs = menu.getChilds().stream().map(MenuDto::new).collect(Collectors.toList());
     }
 
-    public MenuDto(String id, String title, String link, Banner banner, List<MenuDto> childs){
+    public MenuDto(String id, String title, String link, MenuDto parent, Banner banner, List<MenuDto> childs){
         this.id = id;
         this.title = title;
         this.link = link;
+        this.parent = parent;
         this.banner = banner;
         this.childs = childs;
     }
