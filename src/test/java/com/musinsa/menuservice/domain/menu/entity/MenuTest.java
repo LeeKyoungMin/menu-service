@@ -38,7 +38,6 @@ class MenuTest {
                           .title("test")
                           .link("/test.example.com")
                           .parent(menu)
-                          .banner(banner)
                           .childs(new ArrayList<Menu>())
                           .build();
     }
@@ -52,7 +51,7 @@ class MenuTest {
         String title = "Example";
         String link = "/example.com";
         Menu parent = newMenu;
-        Banner banner = new Banner("/main.banner.com", "/banner.com");
+        Banner banner = null; //하위 메뉴일때 banner는 null
         ArrayList<Menu> child = new ArrayList<>();
     
         //when

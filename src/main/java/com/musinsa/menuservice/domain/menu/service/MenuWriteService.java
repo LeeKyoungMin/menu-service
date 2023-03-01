@@ -25,21 +25,20 @@ public class MenuWriteService {
         Menu parentMenu = null;
         Menu savedMenu = null;
 
-        if (StringUtils.hasText(command.parentId())) {
+        if (StringUtils.hasText(command.parentId())) { //하위메뉴 등록할때
             parentMenu = getMenuById(command.parentId());
             
             Menu newMenu = Menu.builder()
                 .title(command.title())
                 .link(command.link())
                 .parent(parentMenu)
-                .banner(command.banner())
                 .childs(new ArrayList<>())
                 .build();
 
             parentMenu.add(newMenu);
         
             savedMenu = menuRepository.save(parentMenu);
-        }else{
+        }else{ //최상위 메뉴 등록할때
             Menu newMenu = Menu.builder()
                 .title(command.title())
                 .link(command.link())

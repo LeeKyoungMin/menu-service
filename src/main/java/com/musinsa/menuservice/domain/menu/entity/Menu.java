@@ -52,7 +52,14 @@ public class Menu {
         this.title = Objects.requireNonNull(title);
         this.link = Objects.requireNonNull(link);
         this.parent = parent;
-        this.banner = banner;
+        if(parent != null && parent.getId() != null){
+            if(banner != null){
+                throw new IllegalArgumentException("Banner Register Ban");
+            }
+            this.banner = null;
+        }else{
+            this.banner = banner;
+        }
         this.childs = childs;
     }
 
