@@ -1,6 +1,8 @@
 package com.musinsa.menuservice.domain.menu.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +27,14 @@ public class MenuWriteService {
         Menu parentMenu = null;
         Menu savedMenu = null;
 
-        if (StringUtils.hasText(command.parentId())) { //하위메뉴 등록할때
-            parentMenu = getMenuById(command.parentId());
+        if (StringUtils.hasText(command.getParentId())) { //하위메뉴 등록할때
+            parentMenu = getMenuById(command.getParentId());
             
             var newMenu = Menu.builder()
-                               .title(command.title())
-                               .link(command.link())
+                               .title(command.getTitle())
+                               .link(command.getLink())
                                .parent(parentMenu)
-                               .childs(new ArrayList<Menu>())
+                               .childs(Collections.emptyList())
                                .build();
 
             parentMenu.add(newMenu);
@@ -40,11 +42,11 @@ public class MenuWriteService {
             savedMenu = menuRepository.save(parentMenu);
         }else{ //최상위 메뉴 등록할때
             var newMenu = Menu.builder()
-                               .title(command.title())
-                               .link(command.link())
+                               .title(command.getTitle())
+                               .link(command.getLink())
                                .parent(parentMenu)
-                               .banner(command.banner())
-                               .childs(command.childs())
+                               .banner(command.getBanner())
+                               .childs(Collections.emptyList())
                                .build();
             savedMenu = menuRepository.save(newMenu);
         }
@@ -60,13 +62,14 @@ public class MenuWriteService {
         var menu = getMenuById(id);
         
         var menuDto = MenuDto.from(menu);
+        
         menu = Menu.builder()
                     .id(id)
-                    .title(command.title())
-                    .link(command.link())
-                    .parent(new Menu(menuDto.getParent()))
-                    .banner(command.banner())
-                    .childs(command.childs())
+                    .title(command.getTitle())
+                    .link(command.getLink())
+                    .parent(Menu.to(menuDto.getParent()))
+                    .banner(command.getBanner())
+                    .childs(menuDto.getChilds().stream().map(Menu::to).collect(Collectors.toList()))
                     .build();
         
         menuRepository.save(menu);

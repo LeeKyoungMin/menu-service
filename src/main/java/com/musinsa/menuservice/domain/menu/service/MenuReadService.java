@@ -1,6 +1,7 @@
 package com.musinsa.menuservice.domain.menu.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,7 @@ import com.musinsa.menuservice.domain.menu.dto.MenuDto;
 import com.musinsa.menuservice.domain.menu.repository.MenuRepository;
 
 import lombok.RequiredArgsConstructor;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class MenuReadService {
 
         return menus.stream()
                     .map(MenuDto::from)
-                    .toList();
+                    .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

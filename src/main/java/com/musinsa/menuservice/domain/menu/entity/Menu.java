@@ -1,6 +1,7 @@
 package com.musinsa.menuservice.domain.menu.entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -63,17 +64,29 @@ public class Menu {
         this.childs = childs;
     }
 
-    public Menu(MenuDto menuDto){
-        if(menuDto != null && menuDto.getId() != null){
-            this.id = menuDto.getId();
-            this.title = menuDto.getTitle();
-            this.link = menuDto.getLink();
-            if(menuDto.getParent() != null && menuDto.getParent().getId() != null){
-                this.parent = new Menu(menuDto.getParent());
-            }
-            this.banner = menuDto.getBanner();
-            this.childs = menuDto.getChilds().stream().map(Menu::new).collect(Collectors.toList());
+    public static Menu to(MenuDto menuDto) {
+        if (menuDto == null || menuDto.getId() == null) {
+            return null;
         }
+
+        Menu parent = null;
+
+        if (menuDto.getParent() != null) {
+            parent = new Menu(
+                    menuDto.getParent().getId(),
+                    menuDto.getParent().getTitle(),
+                    menuDto.getParent().getLink(),
+                    null,
+                    menuDto.getParent().getBanner(),
+                    Collections.emptyList()
+            );
+        }
+
+        List<Menu> childs = menuDto.getChilds().stream()
+                                                .map(Menu::to)
+                                                .collect(Collectors.toList());
+
+        return new Menu(menuDto.getId(), menuDto.getTitle(), menuDto.getLink(), parent, menuDto.getBanner(), childs);
     }
 
     public Menu(){}

@@ -2,14 +2,12 @@ package com.musinsa.menuservice.domain.menu.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,8 +19,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.musinsa.menuservice.domain.banner.entity.Banner;
-import com.musinsa.menuservice.domain.menu.dto.MenuDto;
 import com.musinsa.menuservice.domain.menu.dto.MenuCommand;
+import com.musinsa.menuservice.domain.menu.dto.MenuDto;
 import com.musinsa.menuservice.domain.menu.entity.Menu;
 import com.musinsa.menuservice.domain.menu.repository.MenuRepository;
 
@@ -70,7 +68,7 @@ public class MenuWriteServiceTest {
                         "/test.menu.com",
                         parentId,
                         banner,
-                        new ArrayList<Menu>()
+                        new ArrayList<MenuDto>()
                         );
 
         when(menuRepository.findById(parentId)).thenReturn(Optional.of(parentMenu));
@@ -103,7 +101,7 @@ public class MenuWriteServiceTest {
                         "/test.menu.com",
                         null,
                         banner,
-                        new ArrayList<Menu>()
+                        new ArrayList<MenuDto>()
                         );
 
         when(menuRepository.save(any(Menu.class))).thenReturn(menu);
@@ -139,7 +137,7 @@ public class MenuWriteServiceTest {
                 "/redirect.com",
                 null,
                 null,
-                new ArrayList<Menu>()
+                new ArrayList<MenuDto>()
                 );           
 
         //when
