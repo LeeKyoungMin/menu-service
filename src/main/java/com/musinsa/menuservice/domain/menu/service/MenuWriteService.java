@@ -28,28 +28,28 @@ public class MenuWriteService {
         if (StringUtils.hasText(command.parentId())) { //하위메뉴 등록할때
             parentMenu = getMenuById(command.parentId());
             
-            Menu newMenu = Menu.builder()
-                .title(command.title())
-                .link(command.link())
-                .parent(parentMenu)
-                .childs(new ArrayList<>())
-                .build();
+            var newMenu = Menu.builder()
+                               .title(command.title())
+                               .link(command.link())
+                               .parent(parentMenu)
+                               .childs(new ArrayList<Menu>())
+                               .build();
 
             parentMenu.add(newMenu);
         
             savedMenu = menuRepository.save(parentMenu);
         }else{ //최상위 메뉴 등록할때
-            Menu newMenu = Menu.builder()
-                .title(command.title())
-                .link(command.link())
-                .parent(parentMenu)
-                .banner(command.banner())
-                .childs(command.childs())
-                .build();
+            var newMenu = Menu.builder()
+                               .title(command.title())
+                               .link(command.link())
+                               .parent(parentMenu)
+                               .banner(command.banner())
+                               .childs(command.childs())
+                               .build();
             savedMenu = menuRepository.save(newMenu);
         }
 
-        MenuDto savedMenuDto = new MenuDto(savedMenu);
+        var savedMenuDto = MenuDto.from(savedMenu);
 
         return savedMenuDto;
     }
@@ -57,9 +57,9 @@ public class MenuWriteService {
     @Transactional
     public void updateMenu(String id, MenuCommand command) {
         
-        Menu menu = getMenuById(id);
+        var menu = getMenuById(id);
         
-        MenuDto menuDto = new MenuDto(menu);
+        var menuDto = MenuDto.from(menu);
         menu = Menu.builder()
                     .id(id)
                     .title(command.title())
@@ -74,7 +74,7 @@ public class MenuWriteService {
 
     @Transactional
     public void deleteMenu(String id) {
-        Menu menu = getMenuById(id);
+        var menu = getMenuById(id);
         menuRepository.delete(menu);
     }
 

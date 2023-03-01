@@ -21,13 +21,14 @@ public class MenuReadService {
         var menus = menuRepository.findAll();
 
         return menus.stream()
-                    .map(MenuDto::new)
+                    .map(MenuDto::from)
                     .toList();
     }
 
     @Transactional(readOnly = true)
     public MenuDto getMenu(String id){
         var menu = menuRepository.findById(id).orElseThrow();
-        return new MenuDto(menu);
+        var menuDto = MenuDto.from(menu);
+        return menuDto;
     }
 }

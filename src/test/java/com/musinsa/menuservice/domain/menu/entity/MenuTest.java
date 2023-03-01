@@ -55,7 +55,7 @@ class MenuTest {
         ArrayList<Menu> child = new ArrayList<>();
     
         //when
-        var menu = new Menu(id, title, link, parent, banner, child);
+        Menu menu = new Menu(id, title, link, parent, banner, child);
     
         //then
         assertEquals(id, menu.getId());

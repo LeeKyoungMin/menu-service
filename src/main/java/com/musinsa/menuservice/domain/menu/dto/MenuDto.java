@@ -1,5 +1,6 @@
 package com.musinsa.menuservice.domain.menu.dto;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,17 +20,6 @@ public class MenuDto{
     private Banner banner;
     private List<MenuDto> childs;
 
-    public MenuDto(Menu menu){
-        this.id = menu.getId();
-        this.title = menu.getTitle();
-        this.link = menu.getLink();
-        if(menu.getParent() != null && menu.getParent().getId() != null){
-            this.parent = new MenuDto(menu.getParent());
-        }
-        this.banner = menu.getBanner();
-        this.childs = menu.getChilds().stream().map(MenuDto::new).collect(Collectors.toList());
-    }
-
     public MenuDto(String id, String title, String link, MenuDto parent, Banner banner, List<MenuDto> childs){
         this.id = id;
         this.title = title;
@@ -37,5 +27,30 @@ public class MenuDto{
         this.parent = parent;
         this.banner = banner;
         this.childs = childs;
+    }
+
+    public static MenuDto from(Menu menu) {
+        if (menu == null) {
+            return null;
+        }
+
+        MenuDto parent = null;
+
+        if (menu.getParent() != null) {
+            parent = new MenuDto(
+                    menu.getParent().getId(),
+                    menu.getParent().getTitle(),
+                    menu.getParent().getLink(),
+                    null,
+                    menu.getParent().getBanner(),
+                    Collections.emptyList()
+            );
+        }
+
+        List<MenuDto> childs = menu.getChilds().stream()
+                                                .map(MenuDto::from)
+                                                .collect(Collectors.toList());
+
+        return new MenuDto(menu.getId(), menu.getTitle(), menu.getLink(), parent, menu.getBanner(), childs);
     }
 }

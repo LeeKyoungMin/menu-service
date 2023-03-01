@@ -43,11 +43,11 @@ public class Menu {
     @Embedded
     private Banner banner;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Menu> childs = new ArrayList<Menu>();
 
     @Builder
-    public Menu(String id, String title, String link, Menu parent, Banner banner, ArrayList<Menu> childs){
+    public Menu(String id, String title, String link, Menu parent, Banner banner, List<Menu> childs){
         this.id = id;
         this.title = Objects.requireNonNull(title);
         this.link = Objects.requireNonNull(link);
