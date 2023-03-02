@@ -6,7 +6,7 @@
 <p></p>
 <h2>개발 환경</h2>
 <aside>
-spring boot, java11, postgreSQL, JPA, Junit5
+spring boot, java11, postgreSQL, JPA, Junit5, Gradle 7.4, lombok
 
 
 <aside>
