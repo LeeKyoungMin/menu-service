@@ -55,7 +55,7 @@ public class MenuController {
         return ResponseEntity.ok(menuDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/menus/{id}")
     public void deleteMenu(@PathVariable String id) {
         menuWriteService.deleteMenu(id);
     }
