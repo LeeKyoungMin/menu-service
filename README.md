@@ -4,6 +4,17 @@
 
 ---
 <p></p>
+<h2>개발 환경</h2>
+<aside>
+spring boot, java11, postgreSQL, JPA, Junit5
+
+
+<aside>
+
+
+
+---
+<p></p>
 <h2>사전 작업</h2>
 
 
