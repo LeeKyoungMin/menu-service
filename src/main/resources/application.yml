@@ -10,7 +10,7 @@ spring :
           default_batch_fetch_size: 10
       open-in-view: false
       hibernate:
-        ddl-auto: update
+        ddl-auto: none
     datasource:
       driver-class-name: org.postgresql.Driver
       url: jdbc:postgresql://localhost:5432/musinsa
