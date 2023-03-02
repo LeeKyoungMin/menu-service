@@ -6,22 +6,17 @@ spring :
       show-sql: true
       properties:
         hibernate:
-        #   format_sql: true
           dialect: org.hibernate.dialect.PostgreSQLDialect
-        #   default_batch_fetch_size: 10
-        #   globally_quoted_identifiers: true
+          default_batch_fetch_size: 10
       open-in-view: false
       hibernate:
-        # physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
         ddl-auto: update
     datasource:
       driver-class-name: org.postgresql.Driver
       url: jdbc:postgresql://localhost:5432/musinsa
       username: lkm
       password: new1234!
-    #   hikari:
-    #     maximum-pool-size: 500
-    #     connection-timeout: 5000
-    #     validation-timeout: 4000
-    #     max-lifetime: 600000
-    #   type: com.zaxxer.hikari.HikariDataSource
+
+logging:
+  level:
+    root: INFO

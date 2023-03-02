@@ -4,11 +4,9 @@ import java.util.List;
 
 import com.musinsa.menuservice.domain.banner.entity.Banner;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class MenuCommand {
     private String id;
     private String title;
@@ -17,4 +15,14 @@ public class MenuCommand {
     private Banner banner;
     private List<MenuDto> childs;
 
+    public MenuCommand(){}
+
+    public MenuCommand(String id, String title, String link, String parentId, Banner banner, List<MenuDto> childs){
+        this.id = id;
+        this.title = title;
+        this.link = link;
+        this.parentId = parentId;
+        this.banner = banner;
+        this.childs = childs;
+    }
 }

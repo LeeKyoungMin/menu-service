@@ -1,6 +1,5 @@
 package com.musinsa.menuservice.domain.menu.service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
@@ -34,6 +33,7 @@ public class MenuWriteService {
                                .title(command.getTitle())
                                .link(command.getLink())
                                .parent(parentMenu)
+                               .banner(command.getBanner())
                                .childs(Collections.emptyList())
                                .build();
 

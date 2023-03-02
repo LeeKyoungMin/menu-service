@@ -29,6 +29,8 @@ public class MenuDto{
         this.childs = childs;
     }
 
+    public MenuDto(){}
+
     public static MenuDto from(Menu menu) {
         if (menu == null) {
             return null;

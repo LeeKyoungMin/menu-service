@@ -64,10 +64,10 @@ public class MenuWriteServiceTest {
                         .build();
         menuCommand = new MenuCommand(
                         "",
-                        "test",
-                        "/test.menu.com",
+                        "test2",
+                        "/test2.menu.com",
                         parentId,
-                        banner,
+                        null,
                         new ArrayList<MenuDto>()
                         );
 
