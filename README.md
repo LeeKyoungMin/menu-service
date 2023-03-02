@@ -6,8 +6,8 @@
 
 ---
 
-```json
-postgreSQL 설치 (for mac)
+<aside>
+💡 postgreSQL 설치 (for mac)
 
 (1) postgresql brew 설치
 $ brew install postgresql
@@ -20,14 +20,15 @@ $ postgres -V
 
 (4) ddl 생성
  - 프로젝트의 schema 폴더의 ddl.sql의 내용을 postgresql ddl 쿼리 실행
-```
+
+</aside>
 
 # 빌드 및 실행 방법
 
 ---
 
-```json
-(1) 프로젝트 폴더의 gradlew 권한 변경
+<aside>
+💡 (1) 프로젝트 폴더의 gradlew 권한 변경
 $ chmod +x gradlew
 
 (2) gradle clean
@@ -41,7 +42,8 @@ $ cd {프로젝트 경로}/build/libs
 $ java -jar menu-service-0.0.1-SNAPSHOT.jar
 
 (5) 프로젝트 실행 확인
-```
+
+</aside>
 
 # API 명세
 
@@ -57,8 +59,8 @@ $ java -jar menu-service-0.0.1-SNAPSHOT.jar
 
 ---
 
-```json
-Swagger Test
+<aside>
+💡 Swagger Test
 http://localhost:8080/swagger-ui/index.html
 
 **요구사항안)**
@@ -67,7 +69,8 @@ http://localhost:8080/swagger-ui/index.html
 (3) 새로운 메뉴 등록시 (링크, 타이틀 등록 가능합니다.)
   - 최초 등록일 경우 배너 등록 가능합니다.
   - 하위 메뉴로 등록시 배너 등록할 경우 exception 발생합니다.
-```
+
+</aside>
 
 # 물리 ERD
 
